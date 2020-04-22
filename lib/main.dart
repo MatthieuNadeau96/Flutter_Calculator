@@ -1,5 +1,6 @@
 import 'package:calculator/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() => runApp(MyApp());
 
@@ -120,6 +121,21 @@ class _HomePageState extends State<HomePage> {
                       });
                     },
                   );
+
+                  // Equal Button
+
+                } else if (index == buttons.length - 1) {
+                  return MyButton(
+                    buttonText: buttons[index],
+                    color: Colors.deepPurple[400],
+                    textColor: Colors.white,
+                    buttonTapped: () {
+                      setState(() {
+                        equalOperator();
+                      });
+                    },
+                  );
+
                   // Rest of the buttons
                 } else {
                   return MyButton(
@@ -148,5 +164,18 @@ class _HomePageState extends State<HomePage> {
       return true;
     }
     return false;
+  }
+
+  void equalOperator() {
+    String finalQuestion = userQuestion;
+    finalQuestion = finalQuestion.replaceAll('x', '*');
+
+    Parser p = Parser();
+    Expression exp = p.parse(finalQuestion);
+
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+
+    userAnswer = eval.toString();
   }
 }
