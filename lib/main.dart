@@ -141,6 +141,10 @@ class _HomePageState extends State<HomePage> {
                   return MyButton(
                     buttonTapped: () {
                       setState(() {
+                        if (buttons[index] == '.' &&
+                            userQuestion.contains('.')) {
+                          return;
+                        }
                         userQuestion += buttons[index];
                       });
                     },
