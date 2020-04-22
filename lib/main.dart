@@ -111,8 +111,12 @@ class _HomePageState extends State<HomePage> {
                     textColor: Colors.white,
                     buttonTapped: () {
                       setState(() {
-                        userQuestion =
-                            userQuestion.substring(0, userQuestion.length - 1);
+                        if (userQuestion.length > 0) {
+                          userQuestion = userQuestion.substring(
+                              0, userQuestion.length - 1);
+                        } else {
+                          return;
+                        }
                       });
                     },
                   );
